@@ -69,7 +69,7 @@
                             <a href="#"> <i class="fa fa-shopping-cart"></i> </a>
                         </li>
                         <li >
-                            <a href="#"> <i class="fa fa-user"></i> </a>
+                            <a href="login.jsp"> <i class="fa fa-user"></i> </a>
                         </li>
 
                     </ul>

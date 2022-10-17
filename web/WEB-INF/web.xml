@@ -8,6 +8,7 @@
         <servlet-name>LoginController</servlet-name>
         <servlet-class>sample.Controller.LoginController</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>CreateController</servlet-name>
         <servlet-class>sample.Controller.CreateController</servlet-class>
@@ -32,6 +33,7 @@
         <servlet-name>CreateController</servlet-name>
         <url-pattern>/CreateController</url-pattern>
     </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/HomeController</url-pattern>
@@ -40,12 +42,47 @@
         <servlet-name>ProductDetailController</servlet-name>
         <url-pattern>/detail</url-pattern>
     </servlet-mapping>
+    <dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <version>1.6.0</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.8.1</version>
+</dependency>
+
+  
+
+<context-param>
+    <param-name>host</param-name>
+    <param-value>smtp.gmail.com</param-value>
+</context-param>
+ 
+<context-param>
+    <param-name>port</param-name>
+    <param-value>587</param-value>
+</context-param>
+ 
+<context-param>
+    <param-name>email</param-name>
+    <param-value>tuankun221001@gmail.com</param-value>
+</context-param>
+<context-param>
+    <param-name>name</param-name>
+    <param-value>NestSongAn</param-value>
+</context-param>
+<context-param>
+    <param-name>pass</param-name>
+    <param-value>tuanminhgmail</param-value>
+</context-param>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

@@ -89,6 +89,8 @@
             required=""
           />
           <br />
+          <br>
+          <a href="/NestSongAn/reset_password">I forgot my password</a>
           <div class="submit">
             <input type="submit" name="action" value="Login" />
             <input type="reset" value="reset" />

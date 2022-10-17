@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import sample.DTO.userDTO;
 import sample.Utils.DBUtil;
 
@@ -21,6 +23,62 @@ public class userDAO {
     private static final String LOGIN = "SELECT * FROM tb_User WHERE userName = ? AND passWord = ? ";
     private static final String CHECK_DUPLICATE = "SELECT userName FROM tb_User WHERE userName = ?";
     private static final String INSERT = "INSERT INTO tb_User(user_Fullname, userName, passWord, phoneNumber, Email, Address, role_ID) VALUES(?,?,?,?,?,?,2)";
+    private static final String SEARCH="SELECT * FROM tb_User WHERE Email = ? ";
+    private static final String UPDATE="UPDATE tb_User SET passWord =? WHERE userID =?";
+    public  static userDTO findByEmail(String email) throws SQLException {
+        userDTO user = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if(conn != null){
+                ptm = conn.prepareStatement(SEARCH);
+                ptm.setString(1, email);
+                rs = ptm.executeQuery();
+                while (rs.next()){
+                     int user_ID = rs.getInt("user_ID");
+                    String user_Fullname = rs.getString("user_Fullname");
+                    String userName = rs.getString("userName");
+                    String passWord = rs.getString("passWord");
+                    int phoneNumber = rs.getInt("phoneNumber");
+                    String Email = rs.getString("Email");
+                    String Address = rs.getString("Address");
+                    String role_ID = rs.getString("role_ID");
+                   user = new userDTO(user_ID, user_Fullname, userName, passWord, phoneNumber, Email, Address, role_ID);
+                }
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(rs != null) rs.close();
+            if(ptm != null) ptm.close();
+            if(conn != null) conn.close();
+        }
+        return user;
+    }
+    
+    static boolean update(userDTO user) throws SQLException {
+        boolean checkUpdate = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtil.getConnection();
+            if(conn != null){
+                ptm = conn.prepareStatement(UPDATE);
+                ptm.setString(1, user.getPassWord());
+                ptm.setInt(2, user.getUser_ID());
+                
+                checkUpdate = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+        } finally{
+            if(ptm != null)ptm.close();
+            if(conn != null) conn.close();
+        }
+        return checkUpdate;
+    }
 
     public userDTO checkLogin(String userName, String passWord) throws SQLException {
         userDTO user = null;
@@ -122,4 +180,5 @@ public class userDAO {
         }
         return check;
     }
+    
 }
